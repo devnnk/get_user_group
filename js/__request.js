@@ -62,7 +62,7 @@ async function htmlGetUserGroup(url, is_url = true, data = [], key = -1, i = 0) 
     i++;
     let val_amount = parseInt($('#amount').val());
 
-    if (data.length >= val_amount) {
+    if (data.length >= val_amount && val_amount >= 1) {
         return data;
     }
 
@@ -85,10 +85,8 @@ async function htmlGetUserGroup(url, is_url = true, data = [], key = -1, i = 0) 
     loading_str.append(data.length + '/' + amount);
     //end loading
     let async_get_token = response.match(REGEX_ASYNC_GET_TOKEN)[0];
-    console.log('async_get_token', async_get_token);
     data = data.concat(regexData(response, is_url));
     url = regexNextPage(response, is_url);
-    console.log(url)
     if (url) {
         if (key === -1) {
             return htmlGetUserGroup(url + '&fb_dtsg_ag=' + async_get_token + '&__a=1', false, data, key);

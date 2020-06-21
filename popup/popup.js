@@ -36,10 +36,9 @@ document.addEventListener('DOMContentLoaded', function () {
         let key = -1;
         let clear_render = true;
         let id = id_group.val();
-        let amount = id_amount.val();
+        let amount = parseInt(id_amount.val());
 
-
-        if (amount !== 'all') {
+        if (amount >= 1) {
             key = Math.ceil(amount / 15);
         }
 
@@ -54,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 await htmlGetUserGroup(id, true, [], key).then(response => {
                     console.log('response.length', response.length);
                     if (response.length) {
-                        blob = new Blob([JSON.stringify(response)], {type: 'text/plain'});
+                        blob = new Blob([response.join('\r\n')], {type: 'text/plain'});
                     } else {
                         render.append(renderNotifyLink('Data chưa có dữ liệu!!! Hoặc có thể bạn chưa tham gia nhóm'));
                         clear_render = false;
