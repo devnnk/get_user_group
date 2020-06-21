@@ -1,0 +1,55 @@
+@font-face {
+    font-family: "Patrick_Hand";
+    src: url("font/Patrick_Hand/PatrickHand-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Pacifico";
+    src: url("font/Pacifico/Pacifico-Regular.ttf");
+}
+
+body {
+    font-family: 'Patrick_Hand', 'Pacifico', cursive;
+}
+
+#popup {
+    width: 240px;
+    max-width: 240px;
+    height: 426px;
+    max-height: 426px;
+    position: relative;
+}
+
+#loading, #content {
+    height: 100px;
+}
+
+#loading {
+    display: none;
+}
+
+header {
+    display: flex;
+}
+
+header, footer {
+    height: 25px;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: right;
+}
+
+.h-l > img {
+    height: 20px;
+}
+
+.h-n > h1 {
+    font-size: 15px;
+    margin-block-start: 0;
+    color: #898e9c;
+    margin-left: 5px;
+}

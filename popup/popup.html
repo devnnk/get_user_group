@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Facebook Tool</title>
+    <link href="../css/default.css" rel="stylesheet">
+    <link href="../css/loading.css" rel="stylesheet">
+    <link href="../css/action.css" rel="stylesheet">
+</head>
+<body>
+<div id="popup">
+    <header>
+        <div class="h-l">
+            <img src="../img/common/f_logo_RGB-Grey_512.png">
+        </div>
+        <div class="h-n">
+            <h1>Facebook Tool</h1>
+        </div>
+    </header>
+    <section id="content">
+        <div style="margin: 0 5px 5px 0;">
+            <label for="group">Link group</label>
+            <input style="width: 100%;" placeholder="{ID group}" id="group">
+        </div>
+        <div style="margin: 0 0 5px 0;">
+            <label for="amount">Số lượng user lấy</label>
+            <input style="width: 100%;" placeholder="Số lượng user cần lấy {-1} = tất cả..." id="amount" type="number">
+        </div>
+        <button id="get-started" style="width: 100%">Get started</button>
+        <div id="render">
+            <b>Hướng dẫn:</b>
+            <p>Các group phải là group bạn đã tham gia.</p>
+            <p>Nếu lấy nhiều groups thì nên giãn cách thời gian ra 1 xíu thì sẽ hiệu quả cao!!!.</p>
+        </div>
+    </section>
+    <div id="loading">
+        <div class="lds-heart">
+            <div></div>
+        </div>
+        <div id="loading-str"></div>
+    </div>
+    <footer>
+        <p>Make by <a href="#">GAMOTA</a> with <span style="color: red;">&hearts;</span></p>
+    </footer>
+</div>
+<script src="../libs/jquery-3.4.1.min.js"></script>
+<script src="../libs/cookie.min.js"></script>
+<script src="../js/default.js"></script>
+<script src="../js/__request.js"></script>
+<script src="../js/__cookie.js"></script>
+<script src="../js/__render.js"></script>
+<script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+{
+    "manifest_version": 2,
+    "name": "Extension",
+    "description": "Extension get user group",
+    "version": "0.1",
+    "author": "Khang Gamota",
+    "background": {
+        "scripts": [
+            "/libs/jquery-3.4.1.min.js", "/libs/cookie.min.js"
+        ]
+    },
+    "browser_action": {
+        "default_icon": "image.png",
+        "default_popup": "popup/popup.html",
+        "default_title": "Gamota"
+    },
+    "permissions": [
+        "storage",
+        "tabs"
+    ],
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["exec.js"]
+        }
+    ]
+}
