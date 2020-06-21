@@ -108,7 +108,7 @@ async function htmlGetUserGroup(url, is_url = true, data = [], key = -1, i = 0, 
     //end loading
     last_async_get_token = async_get_token;
     async_get_token = response.match(REGEX_ASYNC_GET_TOKEN)[0];
-    data = merge_array(data, regexData(response, is_url));
+    data = data.concat(regexData(response, is_url));
     url = regexNextPage(response, is_url);
     if (url) {
         if (key === -1) {
@@ -120,11 +120,11 @@ async function htmlGetUserGroup(url, is_url = true, data = [], key = -1, i = 0, 
                 return htmlGetUserGroup(url + '&fb_dtsg_ag=' + async_get_token + '&__a=1', false, data, key, i);
             }
         }
-    } else {
-        if (option.is_again) {
-            return htmlGetUserGroup(url + '&fb_dtsg_ag=' + async_get_token + '&__a=1', false, data, key, i, {is_again: false});
-        }
     }
-
-    return data;
+    // else {
+    //     if (option.is_again) {
+    //         return htmlGetUserGroup(url + '&fb_dtsg_ag=' + async_get_token + '&__a=1', false, data, key, i, {is_again: false});
+    //     }
+    // }
+    return data.filter((x, i, a) => a.indexOf(x) === i);
 }
