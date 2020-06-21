@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 }).catch(error => {
                     render.append(renderNotifyLink('Err: Data chưa có dữ liệu!!! Hoặc có thể bạn chưa tham gia nhóm'));
-                    console.error(error);
+                    console.log(error);
                     clear_render = false;
                 });
             }

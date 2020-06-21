@@ -19,15 +19,8 @@ async function __getComposerOcelot() {
 let loading_str = $('#loading-str');
 let is_amount = true;
 let amount = 0;
-let arr_regex_data = [1, 2];
-let arr_regex_link = [1, 2, 3];
-
-function defineCallRegex(data) {
-    let first_item = data[0];
-    data.shift();
-    data.push(first_item)
-    return data;
-}
+let async_get_token = '';
+let last_async_get_token = '';
 
 function regexData(response, is_url, type = 'data', i = 0) {
     if (i >= 5) {
@@ -47,18 +40,41 @@ function regexNextPage(response, is_url) {
             }
         }
     } else {
-        return '/' + ((response.match(REGEX_LINK_NORMAL_JSON_WEB_2)[0]).split("\/").join("")).split("&amp;").join("&");
+        try {
+            return '/' + ((response.match(REGEX_LINK_NORMAL_JSON_WEB_2)[0]).split("\/").join("")).split("&amp;").join("&");
+        } catch (e) {
+            console.log('error', response)
+        }
     }
 
     return '';
 }
 
+function merge_array(array1, array2) {
+    let result_array = [];
+    let arr = array1.concat(array2);
+    let len = arr.length;
+    let assoc = {};
+
+    while(len--) {
+        let item = arr[len];
+
+        if(!assoc[item])
+        {
+            result_array.unshift(item);
+            assoc[item] = true;
+        }
+    }
+
+    return result_array;
+}
+
 //&amp;
 async function htmlGetUserGroup(url, is_url = true, data = [], key = -1, i = 0) {
-    if (i === 0) {
-        loading_str.empty();
-        loading_str.append(data.length + '/' + amount);
-    }
+    console.log('Count data:', data.length)
+    loading_str.empty();
+    loading_str.append(data.length + '/' + amount);
+
     i++;
     let val_amount = parseInt($('#amount').val());
 
@@ -81,11 +97,12 @@ async function htmlGetUserGroup(url, is_url = true, data = [], key = -1, i = 0) 
             amount = val_amount;
         }
     }
-    loading_str.empty();
-    loading_str.append(data.length + '/' + amount);
+    // loading_str.empty();
+    // loading_str.append(data.length + '/' + amount);
     //end loading
-    let async_get_token = response.match(REGEX_ASYNC_GET_TOKEN)[0];
-    data = data.concat(regexData(response, is_url));
+    last_async_get_token = async_get_token;
+    async_get_token = response.match(REGEX_ASYNC_GET_TOKEN)[0];
+    data = merge_array(data, regexData(response, is_url));
     url = regexNextPage(response, is_url);
     if (url) {
         if (key === -1) {
@@ -97,6 +114,8 @@ async function htmlGetUserGroup(url, is_url = true, data = [], key = -1, i = 0) 
                 return htmlGetUserGroup(url + '&fb_dtsg_ag=' + async_get_token + '&__a=1', false, data, key, i);
             }
         }
+    } else {
+        return htmlGetUserGroup();
     }
 
     return data;
