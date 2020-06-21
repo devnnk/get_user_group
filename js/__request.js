@@ -21,6 +21,9 @@ let is_amount = true;
 let amount = 0;
 let async_get_token = '';
 let last_async_get_token = '';
+let last_url = '';
+let last_data = '';
+let last_i = '';
 
 function regexData(response, is_url, type = 'data', i = 0) {
     if (i >= 5) {
@@ -56,11 +59,10 @@ function merge_array(array1, array2) {
     let len = arr.length;
     let assoc = {};
 
-    while(len--) {
+    while (len--) {
         let item = arr[len];
 
-        if(!assoc[item])
-        {
+        if (!assoc[item]) {
             result_array.unshift(item);
             assoc[item] = true;
         }
@@ -70,8 +72,12 @@ function merge_array(array1, array2) {
 }
 
 //&amp;
-async function htmlGetUserGroup(url, is_url = true, data = [], key = -1, i = 0) {
-    console.log('Count data:', data.length)
+async function htmlGetUserGroup(url, is_url = true, data = [], key = -1, i = 0, option = {is_again: true}) {
+    last_url = url;
+    last_i = i;
+    last_data = data;
+
+    console.log('Count data:', data.length);
     loading_str.empty();
     loading_str.append(data.length + '/' + amount);
 
@@ -115,7 +121,9 @@ async function htmlGetUserGroup(url, is_url = true, data = [], key = -1, i = 0) 
             }
         }
     } else {
-        return htmlGetUserGroup();
+        if (option.is_again) {
+            return htmlGetUserGroup(url + '&fb_dtsg_ag=' + async_get_token + '&__a=1', false, data, key, i, {is_again: false});
+        }
     }
 
     return data;
